@@ -1,13 +1,16 @@
 package task2;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args){
-        Employee newEmployee = new Employee(1, "Ivan", "Kozlov", "male", 26,new City(4, "Novosibirsk"));
+        Employee newEmployee = new Employee(1, "Alena", "Baranova", "female", 20,4);
         int idTest = 3;
-        Employee updateEmployee = new Employee(1, "Anastasiya", "Ivanchenko", "female", 26,new City(1,"Moscow"));
-        int idTest2 = 2;
+        Employee updateEmployee = new Employee(1, "Anna", "Ivanchenko", "female", 27,2);
+        int idTest2 = 4;
 
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
@@ -23,7 +26,7 @@ public class Application {
 
         employeeDAO.updateEmployee(idTest,updateEmployee);
 
-        employeeDAO.deleteEmployee(idTest2);
+        employeeDAO.deleteEmployee(employeeDAO.getEmployee(idTest2));
 
         System.out.println();
         List<Employee> employeesTest2 = employeeDAO.getAllEmloyees();

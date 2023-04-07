@@ -7,5 +7,5 @@ public interface EmployeeDAO {
     Employee getEmployee(int id);
     List<Employee> getAllEmloyees();
     void updateEmployee(int id, Employee employee);
-    void deleteEmployee(int id);
+    void deleteEmployee(Employee employee);
 }
