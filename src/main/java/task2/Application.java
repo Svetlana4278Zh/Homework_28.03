@@ -8,9 +8,9 @@ import java.util.List;
 public class Application {
     public static void main(String[] args){
         Employee newEmployee = new Employee(1, "Alena", "Baranova", "female", 20,4);
-        int idTest = 3;
+        int idTest = 8;
         Employee updateEmployee = new Employee(1, "Anna", "Ivanchenko", "female", 27,2);
-        int idTest2 = 4;
+        int idTest2 = 10;
 
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
