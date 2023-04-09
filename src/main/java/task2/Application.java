@@ -1,37 +1,46 @@
 package task2;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args){
-        Employee newEmployee = new Employee(1, "Alena", "Baranova", "female", 20,4);
-        int idTest = 3;
-        Employee updateEmployee = new Employee(1, "Anna", "Ivanchenko", "female", 27,2);
-        int idTest2 = 4;
-
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        CityDAO cityDAO = new CityDAOImpl();
 
-        employeeDAO.addEmployee(newEmployee);
+        City newCity = new City("Krasnodar");
+        cityDAO.addCity(newCity);
+        int idNewCity = newCity.getCity_id();
+        Employee newEmployee1 = new Employee("Irina", "Vinogradova", "female", 19, newCity);
+        Employee newEmployee2 = new Employee("Anatolii", "Vinogradov", "male", 21,newCity);
 
-        System.out.println(employeeDAO.getEmployee(idTest));
+        newCity.setEmployees(List.of(newEmployee1, newEmployee2));
+        cityDAO.updateCity(newCity);
+
+        printList(cityDAO.getAllCities());
+        printList(employeeDAO.getAllEmloyees());
+
+        newEmployee1.setLast_name("Nevinogradova");
+        newCity.setEmployees(List.of(newEmployee1, newEmployee2));
+        cityDAO.updateCity(newCity);
 
         System.out.println();
-        List<Employee> employeesTest = employeeDAO.getAllEmloyees();
-        for (Employee employee : employeesTest){
-            System.out.println(employee);
-        }
+        printList(cityDAO.getAllCities());
+        printList(employeeDAO.getAllEmloyees());
 
-        employeeDAO.updateEmployee(idTest,updateEmployee);
-
-        employeeDAO.deleteEmployee(employeeDAO.getEmployee(idTest2));
+        cityDAO.deleteCity(newCity);
 
         System.out.println();
-        List<Employee> employeesTest2 = employeeDAO.getAllEmloyees();
-        for (Employee employee : employeesTest2){
-            System.out.println(employee);
+        printList(cityDAO.getAllCities());
+        printList(employeeDAO.getAllEmloyees());
+
+    }
+    public static <T> void printList(List<T> list){
+        for (T value : list){
+            System.out.println(value);
         }
     }
 }
